@@ -111,16 +111,65 @@ public class Helper {
         }
     }
 
-    public static Deque<Integer> merge(Deque<Integer> d1, Deque<Integer> d2) {
+    public static Deque<Integer> merge(Deque<Integer> d1, Deque<Integer> d2) throws Exception {
 	/* assuming d1 and d2 are sorted, merge their contents
        into a single sorted Deque, and return it */
+        Deque<Integer> result = new LinkedListDeque<>();
+        int temp1;
+        int temp2;
+        int size1 = d1.getSize();
+        int size2 = d2.getSize();
+        while (result.getSize() != size1 + size2) {
+            temp1 = d1.popFromFront();
+            temp2 = d2.popFromFront();
+            if (temp1 <= temp2) {
+                result.pushToBack(temp1);
+                d2.pushToFront(temp2);
+                if (d1.getSize() == 0) {
+                    int biggestValue = d2.popFromBack();
+                    d2.pushToBack(biggestValue);
+                    d1.pushToFront(biggestValue + 10);
+                }
+            } else {
+                result.pushToBack(temp2);
+                d1.pushToFront(temp1);
+                if (d2.getSize() == 0) {
+                    int biggestValue = d1.popFromBack();
+                    d1.pushToBack(biggestValue);
+                    d2.pushToFront(biggestValue + 10);
+                }
+            }
+        }
+        return result;
     }
 
-    public static Deque<Integer> mergeSort(Deque<Integer> deq) {
+    public static Deque<Integer> mergeSort(Deque<Integer> deq) throws Exception {
      /* Step 0:  base case???
         Step 1:  split deq into two Deques of relatively equal size
         Step 2:  pass both of these Deques into mergeSort
         Step 3:  pass the resulting Deques into merge, and return the result
      */
+        if (deq.getSize() == 1) {
+            return deq;
+        }
+        int size = deq.getSize();
+        int size1 = size / 2;
+        int size2 = size - size1;
+        Deque<Integer> firstHalf = new LinkedListDeque<>();
+        Deque<Integer> secondHalf = new LinkedListDeque<>();
+        for (int i = 0; i < size1; i++) {
+            int temp = deq.popFromFront();
+            firstHalf.pushToBack(temp);
+            deq.pushToBack(temp);
+        }
+        for (int i = 0; i < size2; i++) {
+            int temp = deq.popFromFront();
+            secondHalf.pushToBack(temp);
+            deq.pushToBack(temp);
+        }
+        firstHalf = mergeSort(firstHalf);
+        secondHalf = mergeSort(secondHalf);
+        Deque<Integer> sortedDeq = merge(firstHalf, secondHalf);
+        return sortedDeq;
     }
 }

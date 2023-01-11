@@ -10,48 +10,25 @@ import instances.Student;
 
 public class test1 {
     public static void main(String[] args) {
-        Student s1 = new Student("Akhmet", "Yassaui", 23, 2);
-        Student s4 = new Student("Timur", "Zhanibek", 22, 5);
-        Student s2 = new Student("Akerke", "Assetova", 21, 3);
-        Student s3 = new Student("Symbat", "Dulatuly", 23, 4);
-        Deque<Student> deq = new LinkedListDeque<>();
-        deq.pushToBack(s1);
-        deq.pushToFront(s2);
-        deq.pushToFront(s3);
+        Deque<Integer> deq = new LinkedListDeque<>();
+        deq.pushToFront(2000);
+        deq.pushToFront(2);
+        deq.pushToFront(200);
+        deq.pushToFront(3000);
+        deq.pushToFront(1);
+        deq.pushToFront(500);
+        deq.pushToFront(0);
+        deq.pushToFront(45);
+        deq.pushToFront(10000);
+        deq.pushToFront(10000);
         System.out.println(deq);
         try {
-            deq.popFromFront();
+            Deque<Integer> sortedDeq = Helper.mergeSort(deq);
+            System.out.println(sortedDeq);
         } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println(deq);
-        deq.pushToFront(s4);
-        System.out.println(deq);
-        try {
-            deq.popFromBack();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        deq.pushToBack(s3);
-        System.out.println(deq);
-        System.out.println(deq.getSize());
-        try {
-            System.out.println(deq.popFromFront());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(deq.getSize());
-        try {
-            System.out.println(deq.popFromBack());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(deq.getSize());
-        try {
-            System.out.println(deq.popFromFront());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(deq.getSize());
+
     }
 }
