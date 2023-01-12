@@ -2,6 +2,7 @@ package impl;
 
 import adt.Deque;
 import adt.Queue;
+import adt.Set;
 import adt.Stack;
 
 public class Helper {
@@ -171,5 +172,115 @@ public class Helper {
         secondHalf = mergeSort(secondHalf);
         Deque<Integer> sortedDeq = merge(firstHalf, secondHalf);
         return sortedDeq;
+    }
+
+    public static boolean isSubset(Set<Integer> set1, Set<Integer> set2) {
+        int set1Size = set1.getSize();
+        if (set1Size == 0) {
+            return true;
+        }
+        Set<Integer> tempSet = new LLStackSet<>();
+        Set<Integer> copyOftempSet = new LLStackSet<>();
+        for (int i = 0; i < set1Size; i++) {
+            try {
+                int tempVal = set1.removeAny();
+                tempSet.add(tempVal);
+                copyOftempSet.add(tempVal);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        for (int i = 0; i < set1Size; i++) {
+            try {
+                set1.add(copyOftempSet.removeAny());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            for (int i = 0; i < set1Size; i++) {
+                if (!set2.contains(tempSet.removeAny())) {
+                    return false;
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return true;
+    }
+
+    public static Set<String> copySetForString(Set<String> set) {
+        int size = set.getSize();
+        if (size == 0) {
+            return new LLStackSet<String>();
+        }
+        Set<String> copyWhichWillBeReturned = new LLStackSet<>();
+        Set<String> copyWhichWillBeEmtied = new LLStackSet<>();
+        try {
+            for (int i = 0; i < size; i++) {
+                String temp = set.removeAny();
+                copyWhichWillBeEmtied.add(temp);
+                copyWhichWillBeReturned.add(temp);
+            }
+            for (int i = 0; i < size; i++) {
+                set.add(copyWhichWillBeEmtied.removeAny());
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return copyWhichWillBeReturned;
+    }
+
+    public static Set<Integer> copySetForInteger(Set<Integer> set) {
+        int size = set.getSize();
+        if (size == 0) {
+            return new LLStackSet<Integer>();
+        }
+        Set<Integer> copyWhichWillBeReturned = new LLStackSet<>();
+        Set<Integer> copyWhichWillBeEmtied = new LLStackSet<>();
+        try {
+            for (int i = 0; i < size; i++) {
+                Integer temp = set.removeAny();
+                copyWhichWillBeEmtied.add(temp);
+                copyWhichWillBeReturned.add(temp);
+            }
+            for (int i = 0; i < size; i++) {
+                set.add(copyWhichWillBeEmtied.removeAny());
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return copyWhichWillBeReturned;
+    }
+
+    public static Set<String> union(Set<String> set1, Set<String> set2) {
+        int set1Size = set1.getSize();
+        int set2Size = set2.getSize();
+        Set<String> copy1 = copySetForString(set1);
+        Set<String> copy2 = copySetForString(set2);
+        try {
+            for (int i = 0; i < set2Size; i++) {
+                copy1.add(copy2.removeAny());
+            }
+        } catch (Exception ex) {
+        }
+        return copy1;
+    }
+
+    public static Set<Integer> intersection(Set<Integer> set1, Set<Integer> set2) {
+        Set<Integer> copy1 = copySetForInteger(set1);
+        Set<Integer> copy2 = copySetForInteger(set2);
+        Set<Integer> result = new LLStackSet<>();
+        try {
+            while (!(copy1.getSize() == 0 || copy2.getSize() == 0)) {
+                int temp1 = copy1.removeAny();
+                if (copy2.contains(temp1)) {
+                    result.add(temp1);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return result;
     }
 }
