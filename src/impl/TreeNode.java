@@ -8,8 +8,8 @@ public class TreeNode<T> {
 
     private T value;
 
-    private OnOffTreeNode<T> left;
-    private OnOffTreeNode<T> right;
+    private TreeNode<T> left;
+    private TreeNode<T> right;
 
     /**
      * Construct a tree node with the given value,
@@ -40,28 +40,28 @@ public class TreeNode<T> {
     /**
      * @return the left
      */
-    public OnOffTreeNode<T> getLeft() {
+    public TreeNode<T> getLeft() {
         return left;
     }
 
     /**
      * @param left the left to set
      */
-    public void setLeft(OnOffTreeNode<T> left) {
+    public void setLeft(TreeNode<T> left) {
         this.left = left;
     }
 
     /**
      * @return the right
      */
-    public OnOffTreeNode<T> getRight() {
+    public TreeNode<T> getRight() {
         return right;
     }
 
     /**
      * @param right the right to set
      */
-    public void setRight(OnOffTreeNode<T> right) {
+    public void setRight(TreeNode<T> right) {
         this.right = right;
     }
 

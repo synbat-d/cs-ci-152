@@ -3,7 +3,7 @@ package impl;
 import adt.Set;
 
 public class BSTSet<T extends Comparable> implements Set<T> {
-    private OnOffTreeNode<T> root;
+    private TreeNode<T> root;
     private int size;
 
     public BSTSet() {
@@ -16,10 +16,10 @@ public class BSTSet<T extends Comparable> implements Set<T> {
         root = addHelper(root, value);
     }
 
-    private OnOffTreeNode<T> addHelper(OnOffTreeNode<T> node, T value) {
+    private TreeNode<T> addHelper(TreeNode<T> node, T value) {
         if (node == null) {
             size++;
-            return new OnOffTreeNode<>(value);
+            return new TreeNode<>(value);
         } else {
             if (node.getValue().compareTo(value) > 0) {
                 node.setLeft(addHelper(node.getLeft(), value));
@@ -35,7 +35,7 @@ public class BSTSet<T extends Comparable> implements Set<T> {
         return checkNodes(root, value);
     }
 
-    private boolean checkNodes(OnOffTreeNode<T> temp, T value) {
+    private boolean checkNodes(TreeNode<T> temp, T value) {
         if (temp == null) {
             return false;
         }
@@ -60,7 +60,7 @@ public class BSTSet<T extends Comparable> implements Set<T> {
         }
     }
 
-    private OnOffTreeNode<T> removeHelper(OnOffTreeNode<T> node, T value) {
+    private TreeNode<T> removeHelper(TreeNode<T> node, T value) {
         if (node == null) {
             return node;
         }
@@ -80,7 +80,7 @@ public class BSTSet<T extends Comparable> implements Set<T> {
         return node;
     }
 
-    private T minValue(OnOffTreeNode<T> node) {
+    private T minValue(TreeNode<T> node) {
         if (node.getLeft() == null) {
             return node.getValue();
         }
@@ -117,7 +117,7 @@ public class BSTSet<T extends Comparable> implements Set<T> {
         return toStringHelper(root);
     }
 
-    public String toStringHelper(OnOffTreeNode<T> node) {
+    public String toStringHelper(TreeNode<T> node) {
         if (node == null) {
             return "";
         }
