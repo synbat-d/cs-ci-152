@@ -1,16 +1,14 @@
 package impl;
 
-
-/**
- * Node class for creating generic binary trees with on off switches
- */
 public class OnOffTreeNode<T> {
 
+
     private T value;
-    private boolean active;
 
     private OnOffTreeNode<T> left;
     private OnOffTreeNode<T> right;
+
+    private boolean active;
 
     /**
      * Construct a tree node with the given value,
@@ -37,27 +35,6 @@ public class OnOffTreeNode<T> {
      */
     public void setValue(T value) {
         this.value = value;
-    }
-
-    /**
-     * @return the active to know whether node is on or off
-     */
-    public boolean isActive() {
-        return active;
-    }
-
-    /**
-     * swithches on this node, we set active field to true
-     */
-    public void switchOn() {
-        this.active = true;
-    }
-
-    /**
-     * swithches onff this node, we set active field to false
-     */
-    public void switchOff() {
-        this.active = false;
     }
 
     /**
@@ -88,6 +65,18 @@ public class OnOffTreeNode<T> {
         this.right = right;
     }
 
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void switchOff() {
+        this.active = false;
+    }
+
+    public void switchOn() {
+        this.active = true;
+    }
+
     /**
      * @return the string representation of the value
      */
@@ -96,4 +85,3 @@ public class OnOffTreeNode<T> {
         return value.toString();
     }
 }
-

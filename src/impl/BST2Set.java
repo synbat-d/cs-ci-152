@@ -77,7 +77,9 @@ public class BST2Set<T extends Comparable> implements Set<T> {
             node.setRight(removeHelper(node.getRight(), value));
         } else {
             if (node.isActive()) {
-                node.switchOff();
+                if(node.getLeft()==null && node.getRight()==null) {
+                    node = null;
+                }
             }
         }
         return node;
@@ -85,8 +87,14 @@ public class BST2Set<T extends Comparable> implements Set<T> {
 
     @Override
     public T removeAny() throws Exception {
-        return null;
+        if (size==0) {
+            throw new Exception("Empty set, nothing to remove");
+        }
+        else {
+
+        }
     }
+
 
     @Override
     public int getSize() {
@@ -111,8 +119,9 @@ public class BST2Set<T extends Comparable> implements Set<T> {
         if (node == null) {
             return "";
         } else if (!node.isActive()) {
-            return "";
+            return toStringHelper(node.getLeft()) + "" + toStringHelper(node.getRight());
         }
-        return toStringHelper(node.getLeft()) + " {" + node.getValue() + "} " + toStringHelper(node.getRight());
+        else {
+        return toStringHelper(node.getLeft()) + " {" + node.getValue() + "} " + toStringHelper(node.getRight());}
     }
 }
