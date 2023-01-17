@@ -16,34 +16,50 @@ public class SetTest {
         bstSet.add(0);
         System.out.println(bstSet);
         System.out.println(bstSet.getSize());
-        bstSet.add(14);
-        bstSet.add(-6);
-        bstSet.add(5);
-        System.out.println(bstSet);
-        System.out.println(bstSet.getSize());
-        System.out.println(bstSet.contains(12));
-        System.out.println(bstSet.contains(7));
-        System.out.println(bstSet.contains(2));
-        System.out.println(bstSet.contains(-8));
-        System.out.println(bstSet.contains(5));
-        System.out.println(bstSet);
-        System.out.println(bstSet.getSize());
-        System.out.println(bstSet.remove(0));
-        System.out.println(bstSet.remove(6));
+        System.out.println("------------------------------------------------------------------------------------");
         System.out.println(bstSet.remove(3));
         System.out.println(bstSet);
         System.out.println(bstSet.getSize());
-        System.out.println(bstSet.remove(12));
+        System.out.println("-------------------------------------------------------------------------------------");
+        try {
+            System.out.println(bstSet.removeAny());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println(bstSet);
         System.out.println(bstSet.getSize());
-        System.out.println(bstSet.remove(5));
+        System.out.println("-------------------------------------------------------------------------------------");
+        try {
+            System.out.println(bstSet.removeAny());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println(bstSet);
         System.out.println(bstSet.getSize());
+        System.out.println("-------------------------------------------------------------------------------------");
+        try {
+            System.out.println(bstSet.removeAny());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println(bstSet);
         System.out.println(bstSet.getSize());
-
-
-
+        System.out.println("-------------------------------------------------------------------------------------");
+        try {
+            System.out.println(bstSet.removeAny());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(bstSet);
+        System.out.println(bstSet.getSize());
+        System.out.println("-------------------------------------------------------------------------------------");
+        try {
+            System.out.println(bstSet.removeAny());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(bstSet);
+        System.out.println(bstSet.getSize());
 
     }
 }

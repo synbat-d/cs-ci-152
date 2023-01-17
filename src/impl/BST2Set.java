@@ -2,6 +2,8 @@ package impl;
 
 import adt.Set;
 
+import java.util.EmptyStackException;
+
 public class BST2Set<T extends Comparable> implements Set<T> {
     private OnOffTreeNode<T> root;
     private int size;
@@ -63,7 +65,21 @@ public class BST2Set<T extends Comparable> implements Set<T> {
         } else {
             root = removeHelper(root, value);
             size--;
+            root = WasteManager(root);
             return true;
+        }
+    }
+
+    @Override
+    public T removeAny() throws Exception {
+        if (size == 0) {
+            throw new Exception("Empty Set, nothing to remove");
+        }
+        T result = minValue(root);
+        if (remove(result)) {
+            return result;
+        } else {
+            throw new Exception("something went wrong because of minValue() function in BST2Set class, because remove function gives false");
         }
     }
 
@@ -77,24 +93,55 @@ public class BST2Set<T extends Comparable> implements Set<T> {
             node.setRight(removeHelper(node.getRight(), value));
         } else {
             if (node.isActive()) {
-                if(node.getLeft()==null && node.getRight()==null) {
+                if (node.getLeft() == null && node.getRight() == null) {
                     node = null;
+                } else if (node.getLeft() == null && node.getRight() != null) {
+                    node = node.getRight();
+                } else if (node.getLeft() != null && node.getRight() == null) {
+                    node = node.getLeft();
+                } else {
+                    node.switchOff();
                 }
             }
         }
         return node;
     }
 
-    @Override
-    public T removeAny() throws Exception {
-        if (size==0) {
-            throw new Exception("Empty set, nothing to remove");
+    private T minValue(OnOffTreeNode<T> node) {
+        if (node.getLeft() == null) {
+            return node.getValue();
         }
-        else {
-
-        }
+        return minValue(node.getLeft());
     }
 
+    private OnOffTreeNode<T> WasteManager(OnOffTreeNode<T> node) {
+        if (node == null) {
+            return null;
+        }
+        if (!node.isActive()) {
+            if (node.getRight() == null && node.getLeft() == null) {
+                node = null;
+            } else if (node.getRight() == null && node.getLeft() != null) {
+                node = node.getLeft();
+            } else if (node.getRight() != null && node.getLeft() == null) {
+                node = node.getRight();
+            } else {
+                node.setLeft(WasteManager(node.getLeft()));
+            }
+            return node;
+        } else {
+            if (node.getLeft() == null && node.getRight() != null) {
+                node.setRight(WasteManager(node.getRight()));
+            } else if (node.getLeft() != null && node.getRight() == null) {
+                node.setLeft(WasteManager(node.getLeft()));
+            } else if (node.getLeft() == null && node.getRight() == null) {
+                node = node;
+            } else {
+                node.setLeft(WasteManager(node.getLeft()));
+            }
+            return node;
+        }
+    }
 
     @Override
     public int getSize() {
@@ -120,8 +167,8 @@ public class BST2Set<T extends Comparable> implements Set<T> {
             return "";
         } else if (!node.isActive()) {
             return toStringHelper(node.getLeft()) + "" + toStringHelper(node.getRight());
+        } else {
+            return toStringHelper(node.getLeft()) + " {" + node.getValue() + "} " + toStringHelper(node.getRight());
         }
-        else {
-        return toStringHelper(node.getLeft()) + " {" + node.getValue() + "} " + toStringHelper(node.getRight());}
     }
 }
