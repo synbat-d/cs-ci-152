@@ -2,7 +2,6 @@ package impl;
 
 import adt.Set;
 
-import java.util.EmptyStackException;
 
 public class BST2Set<T extends Comparable> implements Set<T> {
     private OnOffTreeNode<T> root;
