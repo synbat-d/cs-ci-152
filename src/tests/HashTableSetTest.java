@@ -1,11 +1,13 @@
 package tests;
 
+import adt.HashTableSet;
 import adt.Set;
+import impl.BSTHashTableSet;
 import impl.LLQHashTableSet;
 
 public class HashTableSetTest {
     public static void main(String[] args) {
-        Set<Integer> testSet = new LLQHashTableSet<>(4);
+        HashTableSet testSet = new BSTHashTableSet(20);
         for (int i=1; i<21; i++) {
             testSet.add(i);
         }
@@ -36,5 +38,10 @@ public class HashTableSetTest {
         }
         System.out.println(testSet);
         System.out.println(testSet.getSize());
+        System.out.println("Here will be stats displayed");
+        System.out.println("Bucket number "+testSet.getNumberOfBuckets());
+        System.out.println("Load factor: " + testSet.getLoadFactor());
+        System.out.println("Spread"+ testSet.getBucketSizeStandardDev());
+        System.out.println(testSet.bucketsToString());
     }
 }

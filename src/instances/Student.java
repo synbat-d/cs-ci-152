@@ -52,4 +52,22 @@ public class Student implements Comparable<Student> {
             return 0;
         }
     }
+
+    @Override
+    public int hashCode() {
+        return this.name.hashCode()+
+            this.lastName.hashCode()+Integer.valueOf(age).hashCode()+Integer.valueOf(id).hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Student)) {
+            return false;
+        }
+        Student o = (Student) obj;
+        if(o.name.equals(this.name) && o.lastName.equals(this.lastName) && o.age == this.age && o.id == this.id) {
+            return true;
+        }
+        return false;
+    }
 }

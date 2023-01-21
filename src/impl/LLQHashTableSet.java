@@ -1,8 +1,9 @@
 package impl;
 
+import adt.HashTableSet;
 import adt.Set;
 
-public class LLQHashTableSet<T> implements Set<T> {
+public class LLQHashTableSet<T> implements HashTableSet<T> {
     private int numberOfBuckets;
     private LinkedListQueue<T>[] bucket;
     private int size;
@@ -106,6 +107,76 @@ public class LLQHashTableSet<T> implements Set<T> {
 
     @Override
     public String toString() {
+        String result;
+        if (size==0) {
+            result = "Empty set";
+        }
+        result = "";
+        for (int i=0; i<bucket.length; i++) {
+            if(bucket[i]==null) {
+                continue;
+            }
+            if (bucket[i].getSize()==0) {
+                continue;
+            }
+            LinkedListQueue<T> element = bucket[i];
+            result = result + element.toString();
+        }
+        return result;
+    }
+
+    @Override
+    public int getNumberOfBuckets() {
+        return numberOfBuckets;
+    }
+
+    @Override
+    public int getBucketSize(int index) throws Exception {
+        if(index >= numberOfBuckets && index<0) {
+            throw new IllegalArgumentException("Not correct index");
+        }
+        LinkedListQueue<T> element = bucket[index];
+        if(element==null) {
+            return 0;
+        }
+        return element.getSize();
+    }
+
+    @Override
+    public double getLoadFactor() {
+        return (double)size/(double)numberOfBuckets;
+    }
+
+    @Override
+    public double getBucketSizeStandardDev() {
+        int averageBucketSize=0;
+        for (int i=0; i<numberOfBuckets; i++) {
+            LinkedListQueue<T> element = bucket[i];
+            if(element==null) {
+                averageBucketSize = averageBucketSize + 0;
+            }
+            else {
+                averageBucketSize = averageBucketSize + element.getSize();
+            }
+        }
+        averageBucketSize = averageBucketSize/numberOfBuckets;
+        int squareSum = 0;
+        for (int i=0; i<numberOfBuckets; i++) {
+            LinkedListQueue<T> element = bucket[i];
+            if(element==null) {
+                squareSum = squareSum + averageBucketSize*averageBucketSize;
+            }
+            else {
+                squareSum =
+                    squareSum + (averageBucketSize-element.getSize())*(averageBucketSize-element.getSize());
+            }
+        }
+        double result = Math.sqrt((double)squareSum/(double)(numberOfBuckets-1));
+        return result;
+    }
+
+    @Override
+    public String bucketsToString() {
         String result;
         if (size==0) {
             result = "Empty set";
